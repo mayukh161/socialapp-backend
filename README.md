@@ -34,7 +34,7 @@ Redis handles TTL keys atomically so no race condition occurs.
 ##Notification Scheduler:
 When a bot interacts with a user's post then API will check if the user has been notified in the last 15 minutes.
 
-● If YES - a notification is pushed into a Redis List 'user:{id}:pending_notifs'.
+● If YES - a notification is pushed into a Redis List 'user:{id}:pending_notifs'.<br>
 ● If NO - logs "Push Notification Sent to User" and sets a 15-minute cooldown.
 
 A scheduler runs every 5 minutes and scans all users with pending notifications. It pops all notifications from their list

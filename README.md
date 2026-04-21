@@ -1,20 +1,20 @@
 #Social App Backend
 
-##Tech Stack Used:
+##Tech Stack Used:<br>
 Java 17, Spring Boot 4.0.5, Docker, PostgreSQL, Redis
 
-##Setup:
-1. 'docker-compose up -d' - starts postgres and redis
-2. Run the spring boot application
+##Setup:<br>
+1. 'docker-compose up -d' - starts postgres and redis<br>
+2. Run the spring boot application<br>
 3. Import 'Social app.postman_collection.json' in Postman to test the endpoints
 
-##Endpoints:
-1. 'POST /api/posts' - create a post
-2. 'POST /api/posts/{postId}/comments' - add a comment
+##Endpoints:<br>
+1. 'POST /api/posts' - create a post<br>
+2. 'POST /api/posts/{postId}/comments' - add a comment<br>
 3. 'POST /api/posts/{postId}/like' - like a post
 
-##How I handled the Atomic Locks:
-###Horizontal Cap
+##How I handled the Atomic Locks:<br>
+###Horizontal Cap<br>
 The approach of incrementing the counter when a bot comments on a post and then checking if it exceeds 100 cannot be used
 under concurrency. Multiple requests can be read at the same time and all can hit the database py passing the check.
 
@@ -22,16 +22,16 @@ I used Redis Lua Script to handle this. The check condition and the increment bo
 can pass the condition. I have tested with 200 concurrent requests in Postman and both Redis and Postgres have stopped at
 exactly 100 requests.
 
-###Vertical Cap
+###Vertical Cap<br>
 The depth level is calculated from the parent comment before being saved. If depth level goes above 20 then the request 
 is rejected with a 400 status code and nothing is written in the database.
 
-###Cooldown Cap
+###Cooldown Cap<br>
 When a bot comments on a user's post a Redis key is created with a 10 minute TTL(Time To Live). Before every bot comments 
 on a post the API checks whether that key exists and if it does then the request is blocked with a 429 status code. Since
 Redis handles TTL keys atomically so no race condition occurs.
 
-##Notification Scheduler:
+##Notification Scheduler:<br>
 When a bot interacts with a user's post then API will check if the user has been notified in the last 15 minutes.
 
 ● If YES - a notification is pushed into a Redis List 'user:{id}:pending_notifs'.<br>

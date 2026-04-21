@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "8b7127c1-010a-470d-89d4-46241739b522",
+    "name": "Social app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53949057",
+    "_collection_link": "https://go.postman.co/collection/53949057-8b7127c1-010a-470d-89d4-46241739b522?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "create post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"author_id\": \"abc123\",\r\n    \"type\": \"USER\",\r\n    \"content\": \"This is my first ever post!\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add bot comment",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"author_id\": \"bot{{$randomUUID}}\",\r\n    \"type\": \"BOT\",\r\n    \"content\": \"Really good post agin!\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts/2ef11a43-6072-4159-beed-46570088657b/comments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "posts",
+            "2ef11a43-6072-4159-beed-46570088657b",
+            "comments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "likes",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"author_id\": \"abc30\",\r\n    \"content\": \"Beautiful\",\r\n    \"depth_level\": 1\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/posts/2ef11a43-6072-4159-beed-46570088657b/like",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "posts",
+            "2ef11a43-6072-4159-beed-46570088657b",
+            "like"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

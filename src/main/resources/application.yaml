@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: socialapp
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/socialdb?TimeZone=Asia/Kolkata
+    username: Mayukh
+    password: Sunny
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
